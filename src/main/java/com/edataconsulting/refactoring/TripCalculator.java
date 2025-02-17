@@ -5,14 +5,18 @@ import java.util.List;
 public class TripCalculator {
 
     public static double calculateTripHours(List<TripSegment> tripSegments, List<Double> stopHours) {
-        double totalHours = tripSegments.stream()
+        return calculateSegmentsHours(tripSegments) + calculateStopsHours(stopHours);
+    }
+
+    private static double calculateSegmentsHours(List<TripSegment> tripSegments) {
+        return tripSegments.stream()
                 .mapToDouble(TripSegment::tripSegmentHourCalculator)
                 .sum();
+    }
 
-        double totalStopHours = stopHours.stream()
+    private static double calculateStopsHours(List<Double> stopHours) {
+        return stopHours.stream()
                 .mapToDouble(Double::doubleValue)
                 .sum();
-
-        return totalHours + totalStopHours;
     }
 }
